@@ -8,6 +8,76 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="index-style.css">
 
+    <style>
+        /* สไตล์สำหรับปุ่มแผนที่และป๊อปอัพ (Modal) */
+        .btn-link.map {
+            background-color: #ea4335;
+            /* สีแดงสไตล์ Google Maps */
+            color: #ffffff;
+        }
+
+        .btn-link.map:hover {
+            background-color: #d93025;
+        }
+
+        /* Modal ซ่อนไว้เป็นค่าเริ่มต้น */
+        .map-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+        }
+
+        .map-modal-content {
+            position: relative;
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 15px;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .map-modal h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: #333;
+            text-align: center;
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 380px;
+            border: 0;
+            border-radius: 8px;
+        }
+
+        .direct-map-link {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
 
 </head>
 
@@ -23,7 +93,6 @@
             Tus neeg caum txoj kev npau suav thiab xav muaj nyiaj. Ua txhua yam xav kom muaj nyiaj
             vim kuv ntxhub txoj kev txom nyem. My past wasn't great, but my future will be. ໃຫ້ກຽດ ເຄົາລົບ ນັບຖື ແລະ
             ເຫັນໃຈກັນແລະກັນ</p>
-
 
         <div class="links-container">
             <a href="https://www.facebook.com/profile.php?id=61593270973690#" target="_blank"
@@ -51,12 +120,51 @@
                 class="btn-link tiktok">
                 <i class="fa-brands fa-tiktok"></i> TikTok
             </a>
+
+            <!-- ปุ่มแผนที่ร้านค้า -->
+            <a href="javascript:void(0);" onclick="openMapModal()" class="btn-link map">
+                <i class="fa-solid fa-location-dot"></i> แผนที่ร้านค้า (แผนที่ดาวเทียม)
+            </a>
         </div>
     </div>
 
+    <!-- หน้าต่างป๊อปอัพ (Modal) แสดงแผนที่ -->
+    <div id="mapModal" class="map-modal">
+        <div class="map-modal-content">
+            <span class="close-modal" onclick="closeMapModal()">&times;</span>
+            <h3><i class="fa-solid fa-map-location-dot"></i> แผนที่ร้านค้า</h3>
+
+            <!-- ใช้พิกัดร้านจริงของคุณฝังแผนที่โดยตรง -->
+            <iframe class="map-frame"
+                src="https://maps.google.com/maps?q=18.3580982399935,102.42488843417549&z=17&output=embed"
+                allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin">
+            </iframe>
+
+            <!-- ลิงก์เปิดในแอป Google Maps นำทางตรงไปยังพิกัดร้าน -->
+            <a href="https://www.google.com/maps?q=18.3580982399935,102.42488843417549" target="_blank"
+                class="direct-map-link">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> เปิดใน Google Maps App
+            </a>
+        </div>
+    </div>
 
     <script src="protect.js"></script>
+    <script>
+        function openMapModal() {
+            document.getElementById('mapModal').style.display = 'block';
+        }
 
+        function closeMapModal() {
+            document.getElementById('mapModal').style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            var modal = document.getElementById('mapModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
 </body>
 
